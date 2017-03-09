@@ -46,7 +46,8 @@ public class Menus extends JFrame implements ActionListener, MouseListener, Wind
 	static String from = "prosty.edytor@interia.pl";
 	static String password = "1234edytor";
 	JFrame f;
-	
+	 cos to dodaje
+	 
 	
 	/**
 	 * Constructs new Simple Editor with TextArea and options to edit, save or send text.
@@ -281,6 +282,7 @@ public class Menus extends JFrame implements ActionListener, MouseListener, Wind
 	
 
 	if(which.equals("Set email configuration to default values")){
+		
 	 host = "poczta.interia.pl";
 	 port = "587";
 	from = "prosty.edytor@interia.pl";
