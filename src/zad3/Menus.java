@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,7 +29,7 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
-public class Menus extends JFrame implements ActionListener, MouseListener{
+public class Menus extends JFrame implements ActionListener, MouseListener, WindowListener{
 	private JScrollPane sp;
 	private JTextArea ar;
 	static String colorsS [] = {"Blue    ", "Yellow ", "Orange", "Red", "White  ", "Black  ", "Green  "};
@@ -42,7 +44,8 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 	static String host = "poczta.interia.pl";
 	static String port = "587";
 	static String from = "prosty.edytor@interia.pl";
-	static String password = "123edytor";
+	static String password = "1234edytor";
+	JFrame f;
 	
 	
 	/**
@@ -63,7 +66,7 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 		scrollPane.setPreferredSize(new Dimension(600,400));
 		scrollPane.setBorder(BorderFactory.createTitledBorder("Text"));
 		sp = scrollPane;
-		JFrame f = new JFrame();
+		f = new JFrame();
 		f.getContentPane().add(scrollPane);
 		this.add(scrollPane);
 		highlighter= ar.getHighlighter();
@@ -149,8 +152,10 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 			bar.add(phraze);
 			setJMenuBar(bar);
 			pack();
-			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			this.addWindowListener(this);
 			this.setVisible(true);
+			
 		
 	}
 	
@@ -230,22 +235,9 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 			jfc.showSaveDialog(null);
 		}
 		
-		if(which.equals("Exit")){
-			
-			String opcje[] = {"save", "cancel", "don't save"};
-			int rc = JOptionPane.showOptionDialog(null,"Save changes ?" , "Text was modified", 
-					JOptionPane.DEFAULT_OPTION, 
-					JOptionPane.QUESTION_MESSAGE,
-					null,
-					opcje,
-					opcje[0]);
-			 if(rc == 2){
-			System.exit(1);}
-			 if(rc == 0){
-				this.saving();
-				System.exit(0);
-					 
-				 } 			 
+		if(which.equals("Exit") ){
+			makeSureIfClose();
+		 
 		}
 		
 		if(which.equals("Yours sincerley")){
@@ -292,7 +284,7 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 	 host = "poczta.interia.pl";
 	 port = "587";
 	from = "prosty.edytor@interia.pl";
-	password = "123edytor";
+	password = "1234edytor";
 }
 	
 	if(e.getSource() instanceof But){
@@ -315,6 +307,25 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 	
 		
 	
+	}
+	
+	/**
+	 * This method reminds user to save text changes before closing window.
+	 */
+	private void makeSureIfClose(){
+		String opcje[] = {"save", "cancel", "don't save"};
+		int rc = JOptionPane.showOptionDialog(null,"Save changes ?" , "Text was modified", 
+				JOptionPane.DEFAULT_OPTION, 
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				opcje,
+				opcje[0]);
+		 if(rc == 2){
+		this.dispose();}
+		 if(rc == 0){
+			this.saving();
+			this.f.dispose(); }
+		
 	}
 	
 	/**
@@ -645,6 +656,56 @@ public class Menus extends JFrame implements ActionListener, MouseListener{
 		// TODO Auto-generated method stub
 		highlighter.removeAllHighlights();
 	
+		
+	}
+
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		makeSureIfClose();
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	
