@@ -46,7 +46,7 @@ public class Menus extends JFrame implements ActionListener, MouseListener, Wind
 	static String from = "prosty.edytor@interia.pl";
 	static String password = "1234edytor";
 	JFrame f;
-	 cos to dodaje
+
 	 
 	
 	/**
